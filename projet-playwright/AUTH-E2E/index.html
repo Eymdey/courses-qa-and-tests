@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Création de compte</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        display: grid;
+        place-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+      input {
+        padding: 8px;
+      }
+      button {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      #message {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+      .success {
+        color: green;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="signup-form" novalidate>
+      <h2>Créer un compte</h2>
+      <input
+        name="username"
+        type="text"
+        placeholder="Nom d'utilisateur"
+        required
+      />
+      <input name="email" type="email" placeholder="E-mail" required />
+      <input
+        name="password"
+        type="password"
+        placeholder="Mot de passe"
+        required
+      />
+      <button type="submit">S'inscrire</button>
+      <div id="message"></div>
+    </form>
+
+    <script>
+      const form = document.getElementById("signup-form");
+      const messageDiv = document.getElementById("message");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Empêche le rechargement de la page
+
+        const email = form.elements["email"].value;
+        const username = form.elements["username"].value;
+        const password = form.elements["password"].value;
+
+        if (!username || !email || !password) {
+          messageDiv.textContent = "Tous les champs sont requis.";
+          messageDiv.className = "error";
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          messageDiv.textContent = "Le format de l'e-mail est invalide.";
+          messageDiv.className = "error";
+          return;
+        }
+
+        messageDiv.textContent = `Compte créé pour ${username} !`;
+        messageDiv.className = "success";
+      });
+    </script>
+  </body>
+</html>
