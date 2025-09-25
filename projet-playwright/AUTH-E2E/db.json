@@ -1,3 +1,29 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": "1ef2",
+      "username": "Api User",
+      "email": "api.user@example.com"
+    },
+    {
+      "id": "5aec",
+      "username": "Api User",
+      "email": "api.user@example.com"
+    },
+    {
+      "id": "6156",
+      "username": "Api User",
+      "email": "api.user@example.com"
+    },
+    {
+      "id": "ceb3",
+      "username": "Api User",
+      "email": "api.user@example.com"
+    },
+    {
+      "id": "8f2e",
+      "username": "Api User",
+      "email": "api.user@example.com"
+    }
+  ]
 }
