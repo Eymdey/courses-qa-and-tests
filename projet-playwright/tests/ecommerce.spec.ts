@@ -5,22 +5,20 @@ const siteURL = "https://automationexercise.com/";
 test.describe("Ecommerce's product page", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(siteURL);
-    // Le site semble avoir retiré la bannière de cookies, mais on garde ce code
-    // au cas où. Il ne plantera pas si le bouton n'est pas là.
     const acceptCookiesButton = page.getByRole("button", { name: "Consent" });
     if (await acceptCookiesButton.isVisible()) {
       await acceptCookiesButton.click();
     }
   });
 
-  // === EXERCICE 1 (inchangé, fonctionnait déjà) ===
+  // === EXERCICE 1 ===
   test("should go to product page", async ({ page }) => {
     await page.getByRole("link", { name: "Products" }).click();
     await expect(page).toHaveURL("https://automationexercise.com/products");
     await expect(page).toHaveTitle("Automation Exercise - All Products");
   });
 
-  // === EXERCICE 2 (corrigé) ===
+  // === EXERCICE 2 (corrigé à nouveau) ===
   test("should find a t-shirt", async ({ page }) => {
     await page.getByRole("link", { name: "Products" }).click();
     await expect(page).toHaveURL("https://automationexercise.com/products");
@@ -30,12 +28,13 @@ test.describe("Ecommerce's product page", () => {
 
     const products = page.locator(".features_items .product-image-wrapper");
 
-    // CORRECTION : On vérifie que le PREMIER produit est visible
     await expect(products.first()).toBeVisible();
-    await expect(products.count()).toBeGreaterThan(0);
+
+    // CORRECTION APPLIQUÉE ICI
+    expect(await products.count()).toBeGreaterThan(0);
   });
 
-  // === EXERCICE 3 (corrigé) ===
+  // === EXERCICE 3 ===
   test("should contain product details like title and price", async ({
     page,
   }) => {
@@ -43,7 +42,6 @@ test.describe("Ecommerce's product page", () => {
 
     await expect(page).toHaveTitle("Automation Exercise - Product Details");
 
-    // CORRECTION : Le nom du produit a été mis à jour
     const productName = page.getByRole("heading", {
       name: "Premium Polo T-Shirts",
     });
