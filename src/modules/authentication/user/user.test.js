@@ -3,6 +3,7 @@
 import { describe, it, vi, expect, afterEach } from "vitest";
 import { createUser } from "./user.service";
 import { createUserInRepository } from "./user.repository";
+import { HttpBadRequest, HttpForbidden } from "../../../utils/errors.js";
 
 // Étape 2: Mock du repository
 vi.mock("./user.repository", async (importOriginal) => {
@@ -46,5 +47,50 @@ describe("User Service", () => {
       name: "Valentin R",
       birthday: new Date(1997, 8, 13),
     });
+  });
+
+  // Remplacez l'ancien test "should throw..." par celui-ci
+
+  it("should throw HttpForbidden if the user is too young", async () => {
+    // Arrange
+    const today = new Date();
+    const tooYoungBirthday = new Date(
+      today.getFullYear() - 10,
+      today.getMonth(),
+      today.getDate()
+    );
+    const youngUserData = { name: "Too Young", birthday: tooYoungBirthday };
+
+    // Act & Assert
+    // On utilise un bloc try...catch pour capturer l'erreur et l'analyser
+    try {
+      await createUser(youngUserData);
+      // Si on arrive ici, c'est que le code n'a pas levé d'erreur, donc le test échoue.
+      throw new Error("Expected createUser to throw an error, but it did not.");
+    } catch (error) {
+      // On vérifie les propriétés de l'erreur attrapée
+      expect(error.name).toBe("HttpForbidden");
+      expect(error.statusCode).toBe(403);
+      expect(error.message).toBe("User is too young.");
+    }
+  });
+  // Remplacez le dernier test par celui-ci
+
+  it("should throw HttpBadRequest for invalid schema data", async () => {
+    // Arrange
+    const invalidUserData = {
+      name: 12345, // Incorrect type
+      // birthday is missing
+    };
+
+    // Act & Assert
+    try {
+      await createUser(invalidUserData);
+      throw new Error("Expected createUser to throw an error, but it did not.");
+    } catch (error) {
+      // On vérifie les propriétés de l'erreur
+      expect(error.name).toBe("HttpBadRequest");
+      expect(error.statusCode).toBe(400);
+    }
   });
 });

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.54% </span>
+                <span class="strong">67.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/31</span>
+                <span class='fraction'>21/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.54% </span>
+                <span class="strong">67.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/31</span>
+                <span class='fraction'>21/31</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -99,24 +99,24 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -129,25 +129,25 @@
 &nbsp;
 // Classe de base pour toutes nos erreurs HTTP
 class HttpError extends Error {
-  constructor(message, statusCode) {
-    super(message);
-    this.name = this.constructor.name;
-    this.statusCode = statusCode;
-  }
+<span class="fstat-no" title="function not covered" >  constructor(message, statusCode) {</span>
+<span class="cstat-no" title="statement not covered" >    super(message);</span>
+<span class="cstat-no" title="statement not covered" >    this.name = this.constructor.name;</span>
+<span class="cstat-no" title="statement not covered" >    this.statusCode = statusCode;</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;
 // Erreur pour une requête invalide (400)
 export class HttpBadRequest extends HttpError {
-  constructor(message = "Bad Request") {
-    super(message, 400);
-  }
+<span class="fstat-no" title="function not covered" >  constructor(message = "Bad Request") {</span>
+<span class="cstat-no" title="statement not covered" >    super(message, 400);</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;
 // Erreur pour une ressource non trouvée (404)
 export class HttpNotFound extends HttpError {
-  constructor(message = "Not Found") {
-    super(message, 404);
-  }
+<span class="fstat-no" title="function not covered" >  constructor(message = "Not Found") {</span>
+<span class="cstat-no" title="statement not covered" >    super(message, 404);</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;
 // Erreur pour un accès interdit (403) - utilisée dans l'exercice 1
@@ -163,7 +163,7 @@ export class HttpForbidden extends HttpError {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-09-25T10:15:31.091Z
+                at 2025-09-25T10:29:14.898Z
             </div>
         <script src="../prettify.js"></script>
         <script>
