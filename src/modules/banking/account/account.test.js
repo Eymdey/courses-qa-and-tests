@@ -1,7 +1,8 @@
 // src/modules/banking/account/account.test.js
 
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { HttpBadRequest, HttpNotFound } from "../../../utils/errors";
+// Ligne CORRECTE
+import { HttpBadRequest, HttpNotFound } from "../../utils/errors.js";
 
 // On importe les futures fonctions de notre service
 import { createAccount, getAccounts, deleteAccount } from "./account.service";
