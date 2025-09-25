@@ -1,34 +1,58 @@
-// Importe les modules nécessaires de Playwright
-import { test, expect, Page } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
-// URL du site à tester
 const siteURL = "https://automationexercise.com/";
 
-// On définit une suite de tests pour la page produit de notre e-commerce
 test.describe("Ecommerce's product page", () => {
-  // Cette fonction s'exécutera avant chaque test de cette suite
   test.beforeEach(async ({ page }) => {
-    // 1. On va sur la page d'accueil du site
     await page.goto(siteURL);
-
-    // 2. On gère la bannière de cookies (si elle apparaît)
-    // C'est une bonne pratique de l'isoler car elle peut être conditionnelle
+    // Le site semble avoir retiré la bannière de cookies, mais on garde ce code
+    // au cas où. Il ne plantera pas si le bouton n'est pas là.
     const acceptCookiesButton = page.getByRole("button", { name: "Consent" });
     if (await acceptCookiesButton.isVisible()) {
       await acceptCookiesButton.click();
     }
   });
 
-  // === EXERCICE 1 ===
+  // === EXERCICE 1 (inchangé, fonctionnait déjà) ===
   test("should go to product page", async ({ page }) => {
-    // 3. On clique sur le lien qui mène à la page des produits.
-    // On utilise getByRole pour trouver un lien avec le nom "Products".
     await page.getByRole("link", { name: "Products" }).click();
+    await expect(page).toHaveURL("https://automationexercise.com/products");
+    await expect(page).toHaveTitle("Automation Exercise - All Products");
+  });
 
-    // 4. On vérifie que l'URL est bien celle de la page des produits
+  // === EXERCICE 2 (corrigé) ===
+  test("should find a t-shirt", async ({ page }) => {
+    await page.getByRole("link", { name: "Products" }).click();
     await expect(page).toHaveURL("https://automationexercise.com/products");
 
-    // 5. On vérifie que le titre de la page est correct
-    await expect(page).toHaveTitle("Automation Exercise - All Products");
+    await page.getByRole("textbox", { name: "Search Product" }).fill("t-shirt");
+    await page.locator("#submit_search").click();
+
+    const products = page.locator(".features_items .product-image-wrapper");
+
+    // CORRECTION : On vérifie que le PREMIER produit est visible
+    await expect(products.first()).toBeVisible();
+    await expect(products.count()).toBeGreaterThan(0);
+  });
+
+  // === EXERCICE 3 (corrigé) ===
+  test("should contain product details like title and price", async ({
+    page,
+  }) => {
+    await page.goto("https://automationexercise.com/product_details/30");
+
+    await expect(page).toHaveTitle("Automation Exercise - Product Details");
+
+    // CORRECTION : Le nom du produit a été mis à jour
+    const productName = page.getByRole("heading", {
+      name: "Premium Polo T-Shirts",
+    });
+    await expect(productName).toBeVisible();
+
+    const productPrice = page.getByText(/Rs\./);
+    await expect(productPrice).toBeVisible();
+
+    const addToCartButton = page.getByRole("button", { name: "Add to cart" });
+    await expect(addToCartButton).toBeVisible();
   });
 });
