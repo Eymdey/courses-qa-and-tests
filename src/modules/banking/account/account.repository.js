@@ -14,3 +14,12 @@ export const getAccountsFromRepository = async (userId) => {
 export const deleteAccountInRepository = async (accountId) => {
   // La logique SQL viendra ici plus tard
 };
+// Ajoutez ce code dans src/modules/banking/account/account.repository.js
+
+export const getAccountByIdInRepository = async (accountId) => {
+  // La logique SQL viendra ici
+};
+
+export const patchAccountInRepository = async (accountId, data) => {
+  // La logique SQL viendra ici
+};
