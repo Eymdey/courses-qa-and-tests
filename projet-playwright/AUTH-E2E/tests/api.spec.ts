@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 // On définit l'URL de base de notre API
-const baseURL = "http://localhost:3001";
+const baseURL = "https://reqres.in/api/users";
 
 // On utilise test.describe.serial() pour que les tests de ce groupe
 // s'exécutent les uns après les autres, dans l'ordre. C'est important
