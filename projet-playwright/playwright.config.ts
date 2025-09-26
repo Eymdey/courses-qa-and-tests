@@ -13,73 +13,21 @@ import { defineConfig, devices } from "@playwright/test";
  */
 export default defineConfig({
   outputDir: "./test-results",
-  /* Run tests in files in parallel */
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [
-    [
-      "html",
-      {
-        // Définit le dossier pour le rapport HTML
-        outputFolder: "./playwright-report",
-      },
-    ],
-  ],
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-use: {
-  // On vise le serveur qu'on vient de démarrer dans la pipeline
-  baseURL: 'http://localhost:3000', // <-- CHANGE POUR CETTE VALEUR
-  trace: 'on-first-retry',
-},
-
-  /* Configure projects for major browsers */
+  reporter: [["html", { outputFolder: "./playwright-report" }]],
+  use: {
+    // --- CORRECTION CRUCIALE ---
+    // On dit à Playwright de tester l'application qui tourne sur localhost
+    // dans notre pipeline. Vérifie que ton app démarre bien sur le port 3000.
+    baseURL: 'http://localhost:3000',
+    trace: 'on-first-retry',
+  },
   projects: [
-    {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
-    },
-
-    {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
-    },
-
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
-    },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "firefox", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });
