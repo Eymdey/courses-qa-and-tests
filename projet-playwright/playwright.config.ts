@@ -33,10 +33,8 @@ export default defineConfig({
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 use: {
-  /* Base URL to use in actions like `await page.goto('/')`. */
-  baseURL: 'https://playwright.dev', // <-- AJOUTE CETTE LIGNE
-
-  /* Collect trace when retrying the failed test. */
+  // On vise le serveur qu'on vient de démarrer dans la pipeline
+  baseURL: 'http://localhost:3000', // <-- CHANGE POUR CETTE VALEUR
   trace: 'on-first-retry',
 },
 
